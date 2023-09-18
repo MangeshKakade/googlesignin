@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309395307875",
+    "project_id": "fir-with-f1885",
+    "storage_bucket": "fir-with-f1885.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309395307875:android:e14e48f92c353da27de756",
+        "android_client_info": {
+          "package_name": "com.example.googlelogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5QzCe-LD1Sm2sYRgTA5_1yK3o6ddkQPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
