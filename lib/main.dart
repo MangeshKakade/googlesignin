@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:googlelogin/routes/app_pages.dart';
+import 'package:googlelogin/src/controller/register_controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main()  async {
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: AppPages.pages,
       initialRoute: '/',
+      initialBinding: BindingsBuilder(() {
+        Get.put(RegisterController());
+      }),
     );
   }
 }

@@ -3,25 +3,20 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:googlelogin/src/services/authentication_service.dart';
 
-class RegisterPage extends StatefulWidget {
-  @override
-  _RegisterPageState createState() => _RegisterPageState();
-}
+import '../controller/register_controller.dart';
 
-class _RegisterPageState extends State<RegisterPage> {
-  RxBool isLoading = false.obs;
+class RegisterPage extends StatelessWidget {
+  final RegisterController registerController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    AuthenticationService authenticationService = AuthenticationService();
     return Scaffold(
       backgroundColor: Color(0xFF55C6A9),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,7 +68,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueGrey,
                     ),
@@ -98,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     Container(
-                      height: 1,
+                      height: 2,
                       width: 100,
                       color: Colors.white,
                       margin: EdgeInsets.only(left: 10),
@@ -111,18 +107,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     alignment: Alignment.center,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: isLoading.value
+                        onPressed: registerController.isLoading.value
                             ? null
-                            : () async {
-                          try {
-                            isLoading.value = true;
-                            await authenticationService.handleGoogleSignIn();
-                            Get.offNamed('/dashboard');
-                          } catch (error) {
-                            print('Error during Google Sign-In: $error');
-                          } finally {
-                            isLoading.value = false;
-                          }
+                            : () {
+                          registerController.registerWithGoogle();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
@@ -134,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         label: Text('Sign in with Google'),
                       ),
                       Visibility(
-                        visible: isLoading.value,
+                        visible: registerController.isLoading.value,
                         child: SpinKitCircle(
                           color: Colors.white,
                           size: 36.0,

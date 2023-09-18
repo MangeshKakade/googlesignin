@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../services/authentication_service.dart';
+import '../controller/dashboard_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardPage extends StatelessWidget {
-  final AuthenticationService authenticationService = AuthenticationService();
+  final DashboardController dashboardController = Get.put(DashboardController());
+  final User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -49,13 +48,8 @@ class DashboardPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                onPressed: () async {
-                  try {
-                    await authenticationService.handleSignOut();
-                    Get.offNamed('/');
-                  } catch (error) {
-                    print('Error during sign out: $error');
-                  }
+                onPressed: () {
+                  dashboardController.signOut();
                 },
                 child: Text('Logout'),
               ),
